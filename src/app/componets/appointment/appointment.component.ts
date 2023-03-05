@@ -1,6 +1,6 @@
-import { AppointmentDTO } from './../AppointmentDTO';
+import { AppointmentDTO } from '../../models/AppointmentDTO';
 import { Component, OnInit } from '@angular/core';
-import { AppointmentsService } from '../appointments.service';
+import { AppointmentsService } from '../../services/appointments.service';
 
 @Component({
   selector: 'app-appointment',

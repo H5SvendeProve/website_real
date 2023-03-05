@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppointmentListComponent } from './appointment-list/appointment-list.component';
-import { HomeComponent } from './home/home.component';
+import { AppointmentListComponent } from './componets/appointment-list/appointment-list.component';
+import { HomeComponent } from './componets/home/home.component';
+import { LoginComponent } from './componets/login/login.component';
 
 const routes: Routes = [
   {
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path: 'appointment-list',
     component: AppointmentListComponent
+  },
+  {
+    path: 'login',
+    component : LoginComponent
   }
 ];
 

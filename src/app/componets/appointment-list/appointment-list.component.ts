@@ -1,5 +1,5 @@
-import { AppointmentsService } from './../appointments.service';
-import { AppointmentDTO } from './../AppointmentDTO';
+import { AppointmentsService } from '../../services/appointments.service';
+import { AppointmentDTO } from '../../models/AppointmentDTO';
 import { Component } from '@angular/core';
 import { mergeMap } from 'rxjs/operators';
 

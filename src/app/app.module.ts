@@ -16,16 +16,18 @@ import { MatDatepickerModule} from '@angular/material/datepicker';
 //import { MatNativeDatepickerModule } from '@angular/material/';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { HomeComponent } from './home/home.component';
-import { AppointmentComponent } from './appointment/appointment.component';
-import { AppointmentListComponent } from './appointment-list/appointment-list.component';
+import { HomeComponent } from './componets/home/home.component';
+import { AppointmentComponent } from './componets/appointment/appointment.component';
+import { AppointmentListComponent } from './componets/appointment-list/appointment-list.component';
+import { LoginComponent } from './componets/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     AppointmentComponent,
-    AppointmentListComponent
+    AppointmentListComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
