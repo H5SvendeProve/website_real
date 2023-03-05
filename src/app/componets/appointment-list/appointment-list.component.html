@@ -2,6 +2,15 @@
 <mat-toolbar *ngIf="successMsg" color="accent"> {{successMsg}}</mat-toolbar>
 <mat-toolbar *ngIf="errorMsg" color="warn"> {{errorMsg}}</mat-toolbar>
 
+<div class="outer">
+    <div class="container">
+        <div class="row">
+            <div class="offset-md-2 col-lg-11 col-md-11 offset-lg-1 offset-md-3">
+                <div class="panel border bg-white">
+                    <div class="panel-heading">
+                        <h2 class="pt-3 font-weight-bold">Vaskeriet booked</h2>
+                    </div>
+                    <div class="panel-body">
 <div *ngIf="!loading">
     <table mat-table [dataSource]="appointments" class="mat-elevation-z8 ">
         <ng-container matColumnDef="DKK_per_kWh">
@@ -28,3 +37,8 @@
           <tr mat-row *matRowDef="let appointments; columns: columns"></tr>
     </table>
 </div>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>

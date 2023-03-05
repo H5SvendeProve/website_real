@@ -5,56 +5,12 @@
   <div class="container">
       <div class="row">
           <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
-
-              <div class="panel border bg-white">
-                <div class="panel-heading">
-                <h2 class="pt-3 font-weight-bold">Vaskeriet booking</h2>
-              </div>
-<!--<div class="form-container">-->
-  <div class="panel-body">
-    <form (submit)="createAppointment()">
-
-        <mat-form-field>
-          <input [(ngModel)]="time_start" name="Time start" matInput [matDatepicker]="pickerStart" placeholder="Choose a start date">
-          <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
-          <mat-datepicker #pickerStart></mat-datepicker>
-        </mat-form-field>
-
-        <!--<mat-form-field>-->
-          <div class="from-group pt-0">
-          <div class="input-field">
-          <input [(ngModel)]="time_end" name="Time end" matInput [matDatepicker]="pickerEnd" placeholder="Choose a end date">
-          <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
-          <mat-datepicker #pickerEnd></mat-datepicker>
-        </div>
-      </div>
-        <!--</mat-form-field>-->
-
-        <mat-form-field>
-            <input [(ngModel)]="DKK_per_kWh" name = "DKK_per_kwh" matInput placeholder="DKK_per_kWh">
-        </mat-form-field>
-
-        <mat-form-field>
-        <input [(ngModel)]="EUR_per_kWh" name = "EUR_per_kwh" matInput placeholder="EUR_per_kWh">
-        </mat-form-field>
-
-        <button class="btn btn-primary btn-block mt-1 w-100">Make Appointment</button>
-    </form>
-  </div>
-</div>
-
-      <!--</div>-->
-      <!--</div>-->
-      <!--</div>-->
-      <!--</div>-->
-<!--</div>-->
-
               <div class="panel border bg-white">
                   <div class="panel-heading">
                     <h2 class="pt-3 font-weight-bold">Vaskeriet booking</h2>
                   </div>
                   <div class="panel-body">
-                      <form>
+                      <form (submit)="createAppointment()">
                           <div class="from-group pt-0">
                             <div class="input-field">
                               <input type="text" [(ngModel)]="time_start" name="Time start" matInput [matDatepicker]="pickerStart" placeholder="Choose a start date">
@@ -79,7 +35,7 @@
                         <input type="text" [(ngModel)]="EUR_per_kWh" name = "EUR_per_kwh" matInput placeholder="EUR_per_kWh">
                       </div>
                   </div>
-                  <button class="btn btn-primary btn-block mt-4 w-100">Make Appointment</button>
+                  <button class="btn btn-primary btn-block mt-4 w-100" type="submit" >Make Appointment</button>
                       </form>
                   </div>
               </div>
