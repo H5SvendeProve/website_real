@@ -1,3 +1,4 @@
+import { Router, RouterModule } from '@angular/router';
 import { LoginDTO } from './../../models/LoginDTO';
 import { LoginService } from './../../services/login.service';
 import { Component } from '@angular/core';
@@ -17,7 +18,7 @@ export class LoginComponent {
   userName: string = '';
   password: string = '';
 
-  constructor(private loginService: LoginService){}
+  constructor(private loginService: LoginService, private router: Router){}
 
   hideShowPass(){
     this.isText = !this.isText;
@@ -34,11 +35,12 @@ export class LoginComponent {
   login(){
     this.successMsg = '';
     this.errorMsg = '';
-
+    this.router.navigate(['']);
     this.loginService.login(this.userName, this.password).subscribe((loginAttempt: LoginDTO) => { 
       this.userName = '';
       this.password = '';
       this.successMsg = 'Login was successfully'
+      //this.router.navigate(['appointment-list']); // move to here then call works
 
     },
     (error : ErrorEvent) => {
