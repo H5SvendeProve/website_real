@@ -33,19 +33,38 @@ export class LoginComponent {
   }
 
   login(){
+    console.log(this.userName);
+    console.log(this.password);
+    console.log("Login metode");
+    
     this.successMsg = '';
     this.errorMsg = '';
-    this.router.navigate(['']);
+    //this.router.navigate(['']);
     this.loginService.login(this.userName, this.password).subscribe((loginAttempt: LoginDTO) => { 
       this.userName = '';
       this.password = '';
       this.successMsg = 'Login was successfully'
-      //this.router.navigate(['appointment-list']); // move to here then call works
+      console.log(loginAttempt);
+      
+      this.router.navigate(['']); // move to here then call works
 
     },
     (error : ErrorEvent) => {
       this.errorMsg = error.error.message;
+      console.log("error");
     });
+  }
+
+  loginJWT(){
+    console.log(this.userName);
+    console.log(this.password);
+    console.log("loginJWT met");
+    
+    
+    this.loginService.loginJWT(this.userName, this.password) 
+    this.successMsg = 'Login was successfully'
+      
+    this.router.navigate(['']);
   }
 
 

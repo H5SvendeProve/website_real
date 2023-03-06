@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppointmentListComponent } from './componets/appointment-list/appointment-list.component';
 import { HomeComponent } from './componets/home/home.component';
 import { LoginComponent } from './componets/login/login.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'appointment-list',

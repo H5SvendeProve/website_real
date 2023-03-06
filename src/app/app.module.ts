@@ -20,6 +20,7 @@ import { HomeComponent } from './componets/home/home.component';
 import { AppointmentComponent } from './componets/appointment/appointment.component';
 import { AppointmentListComponent } from './componets/appointment-list/appointment-list.component';
 import { LoginComponent } from './componets/login/login.component';
+import { NavBarComponent } from './componets/nav-bar/nav-bar.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { LoginComponent } from './componets/login/login.component';
     HomeComponent,
     AppointmentComponent,
     AppointmentListComponent,
-    LoginComponent
+    LoginComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,

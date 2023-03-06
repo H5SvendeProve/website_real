@@ -20,8 +20,11 @@ export class AppointmentListComponent {
 
   ngOnInit() {
     this.appointmentsService.getAppointments().subscribe((appointments: AppointmentDTO[]) =>{
+      console.log(appointments);
       this.appointments = appointments;
       this.loading = false;
+      console.log(this.appointments);
+      
     },
     (error: ErrorEvent) => {
       this.errorMsg = error.error.message;

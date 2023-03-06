@@ -16,10 +16,11 @@ form {
     box-shadow: 20px 20px 80px rgb(218, 218, 218);
     border-radius: 12px;
     margin-top: 100px;
+    margin-bottom: 50px;
 }
 
 .outer {
-    height: 220vh;
+    height: auto;
     background: linear-gradient(to top, #c9c9ff 50%, #6e6ef6) no-repeat;
 }
 
@@ -28,3 +29,15 @@ form {
     padding-bottom: 2rem;
     padding-right: 2rem;
 }
+
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .spinner {
+    width: 50px;
+    height: 50px;
+  }

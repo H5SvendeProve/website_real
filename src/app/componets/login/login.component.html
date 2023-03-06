@@ -14,17 +14,17 @@
                             <div class="from-group pt-0">
                                 <div class="input-field">
                                     <span class="fa fa-user p-2"></span>
-                                    <input type="text" placeholder="Username">
+                                    <input [(ngModel)]="userName" [ngModelOptions]="{standalone: true}" type="text" placeholder="Username">
                                 </div>
                             </div>
                             <div class="from-group pt-3">
                                 <div class="input-field">
                                     <span class="fa fa-lock p-2"></span>
-                                    <input [type]="type" placeholder="Password">
+                                    <input [(ngModel)]="password" [ngModelOptions]="{standalone: true}" [type]="type" placeholder="Password">
                                     <span class="fa {{eyeIcon}}" (click)="hideShowPass()"></span>
                                 </div>
                             </div>
-                            <button class="btn btn-primary btn-block mt-4 w-100" type="submit" (click)="login()">Login</button>
+                            <button class="btn btn-primary btn-block mt-4 w-100" type="submit" (click)="loginJWT()">Login</button>
                         </form>
                     </div>
                 </div>
