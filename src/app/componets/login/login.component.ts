@@ -35,11 +35,9 @@ export class LoginComponent {
   login(){
     console.log(this.userName);
     console.log(this.password);
-    console.log("Login metode");
     
     this.successMsg = '';
     this.errorMsg = '';
-    //this.router.navigate(['']);
     this.loginService.login(this.userName, this.password).subscribe((loginAttempt: LoginDTO) => { 
       this.userName = '';
       this.password = '';
@@ -61,10 +59,16 @@ export class LoginComponent {
     console.log("loginJWT met");
     
     
-    this.loginService.loginJWT(this.userName, this.password) 
-    this.successMsg = 'Login was successfully'
-      
-    this.router.navigate(['']);
+    var isLoginOk = this.loginService.loginJWT(this.userName, this.password)
+    console.log("isLoginOk: " + isLoginOk);
+    if (isLoginOk) {
+      this.successMsg = 'Login was successfully'
+      this.router.navigate(['']);
+    }else{
+      this.successMsg = 'Login error'
+    }
+    
+    //this.router.navigate(['']);
   }
 
 

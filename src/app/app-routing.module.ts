@@ -13,7 +13,8 @@ const routes: Routes = [
   },
   {
     path: 'appointment-list',
-    component: AppointmentListComponent
+    component: AppointmentListComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'login',
