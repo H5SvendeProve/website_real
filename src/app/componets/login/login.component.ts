@@ -59,14 +59,24 @@ export class LoginComponent {
     console.log("loginJWT met");
     
     
-    var isLoginOk = this.loginService.loginJWT(this.userName, this.password)
-    console.log("isLoginOk: " + isLoginOk);
-    if (isLoginOk) {
+    //var isLoginOk = this.loginService.loginJWT(this.userName, this.password)
+    //console.log("isLoginOk: " + isLoginOk);
+    //if (isLoginOk) {
+    //  this.successMsg = 'Login was successfully'
+    //  this.router.navigate(['']);
+    //}else{
+    //  this.successMsg = 'Login error'
+    //}
+
+    this.loginService.loginJWT(this.userName, this.password).subscribe((res) => {
+      console.log("res: " + res);
+    if (res) {
       this.successMsg = 'Login was successfully'
       this.router.navigate(['']);
     }else{
       this.successMsg = 'Login error'
     }
+    })
     
     //this.router.navigate(['']);
   }
