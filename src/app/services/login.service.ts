@@ -76,12 +76,12 @@ export class LoginService {
   }
 
   validateToken(token: string): Observable<boolean> {
-    let bearerT: String = 'Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibWF0aGlhcyIsImV4cCI6MTY3ODExNDc2OSwiaXNzIjoiQm9va2luZ1dlYkFwaS5sb2NhbCIsImF1ZCI6IkFuZ3VsYXIifQ.ICYnvjUyCLMIeXNoELdrXv-Q1gYqY6VkMlZ2zpfyYTR1jbKRHRiivsjs6GIU8MztPdgKhNN8BS4qosXI9Yocaw';
+    //let bearerT: String = 'Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibWF0aGlhcyIsImV4cCI6MTY3ODExNDc2OSwiaXNzIjoiQm9va2luZ1dlYkFwaS5sb2NhbCIsImF1ZCI6IkFuZ3VsYXIifQ.ICYnvjUyCLMIeXNoELdrXv-Q1gYqY6VkMlZ2zpfyYTR1jbKRHRiivsjs6GIU8MztPdgKhNN8BS4qosXI9Yocaw';
     //console.log(bearerT);
     console.log("from validate token: " + token);
     
     //const headers = new HttpHeaders().set('Authorization', 'Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibWF0aGlhcyIsImV4cCI6MTY3ODExNDc2OSwiaXNzIjoiQm9va2luZ1dlYkFwaS5sb2NhbCIsImF1ZCI6IkFuZ3VsYXIifQ.ICYnvjUyCLMIeXNoELdrXv-Q1gYqY6VkMlZ2zpfyYTR1jbKRHRiivsjs6GIU8MztPdgKhNN8BS4qosXI9Yocaw');
-    const headers = new HttpHeaders().set('Authorization', token); //! need line
+    const headers = new HttpHeaders().set('Authorization', token); //!
  
     ////this.http.get<any>(`http://192.168.1.2/api/angular/validateToken`, {headers}).subscribe((response:any) =>{
     ////  //console.log(response);
@@ -89,7 +89,17 @@ export class LoginService {
     ////  console.log("hhhhhhh");
     ////  console.log("res " + response);
     ////});;
-    return this.http.get<boolean>(`http://localhost:5147/api/angular/validateToken`, {headers}); //! need line
+    //let isValid: Observable<boolean> = this.http.get<boolean>(`http://localhost:5147/api/angular/validateToken`, {headers});
+    //isValid.subscribe((value) => {
+    //  console.log("isVaild value: " + value);
+    //})
+    
+    //console.log("isvalid: " + isValid.subscribe((res) => {res.valueOf.toString()}));
+    
+    //return this.http.get<boolean>(`http://localhost:5147/api/angular/validateToken`, {headers}); 
+    return this.http.get<boolean>(`http://localhost:5147/api/angular/validateToken`, {headers}).pipe(
+      catchError(()=> of(false)) //!
+    );
     //return of(false);
   }
 
