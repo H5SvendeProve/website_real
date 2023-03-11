@@ -4,43 +4,46 @@
 <app-nav-bar></app-nav-bar>
 <div class="outer">
   <div class="container">
-      <div class="row">
-          <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
-              <div class="panel border bg-white">
-                  <div class="panel-heading">
-                    <h2 class="pt-3 font-weight-bold">Vaskeriet booking</h2>
-                  </div>
-                  <div class="panel-body">
-                      <form (submit)="createAppointment()">
-                          <div class="from-group pt-0">
-                            <div class="input-field">
-                              <input type="text" [(ngModel)]="time_start" name="Time start" matInput [matDatepicker]="pickerStart" placeholder="Choose a start date">
-                              <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
-                              <mat-datepicker #pickerStart></mat-datepicker>
-                            </div>
-                        </div>
-                        <div class="from-group pt-3">
-                          <div class="input-field">
-                            <input type="text" [(ngModel)]="time_end" name="Time end" matInput [matDatepicker]="pickerEnd" placeholder="Choose a end date">
-                            <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
-                            <mat-datepicker #pickerEnd></mat-datepicker>
-                          </div>
-                      </div>
-                      <div class="from-group pt-3">
-                        <div class="input-field">
-                          <input type="text" [(ngModel)]="DKK_per_kWh" name = "DKK_per_kwh" matInput placeholder="DKK_per_kWh">
-                        </div>
-                    </div>
-                    <div class="from-group pt-3">
-                      <div class="input-field">
-                        <input type="text" [(ngModel)]="EUR_per_kWh" name = "EUR_per_kwh" matInput placeholder="EUR_per_kWh">
-                      </div>
-                  </div>
-                  <button class="btn btn-primary btn-block mt-4 w-100" type="submit" >Make Appointment</button>
-                      </form>
-                  </div>
-              </div>
+    <div class="row">
+      <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+        <div class="panel border bg-white">
+          <div class="panel-heading">
+            <h2 class="pt-3 font-weight-bold">Vaskeriet booking</h2>
           </div>
+          <div class="panel-body">
+            <form (submit)="createAppointment()">
+              <ul class="list-group list-group-horizontal" style="padding-bottom: 20px;">
+                <li class="list-group-item" (click)="activateItem('fine')"
+                  [ngClass]="{ 'active': activeItem === 'fine' }">Fine vask</li>
+                <li class="list-group-item" (click)="activateItem('koge')"
+                  [ngClass]="{ 'active': activeItem === 'koge' }">Koge vask</li>
+                <li class="list-group-item" (click)="activateItem('farve')"
+                  [ngClass]="{ 'active': activeItem === 'farve' }">Farve vask</li>
+              </ul>
+
+              <div class="from-group pt-0" style="padding-bottom: 20px;">
+                <div class="input-field">
+                  <input type="text" [(ngModel)]="time_start" name="Time start" matInput [matDatepicker]="pickerStart"
+                    placeholder="Choose a start date">
+                  <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+                  <mat-datepicker #pickerStart></mat-datepicker>
+                </div>
+              </div>
+              <label>Tider</label>
+              <ul class="list-group list-group-horizontal">
+                <li class="list-group-item" [ngClass]="{ 'active': activeItem === item }"
+                  *ngFor="let item of timeList" (click)="activateItem(item)">
+                  {{ item }}
+                </li>
+              </ul>
+              
+
+
+              <button class="btn btn-primary btn-block mt-4 w-100" type="submit">Make Appointment</button>
+            </form>
+          </div>
+        </div>
       </div>
+    </div>
   </div>
 </div>

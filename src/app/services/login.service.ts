@@ -61,7 +61,8 @@ export class LoginService {
 
   loginJWT(username:string, password:string): Observable<Boolean>{
     
-    return this.http.post<LoginDTO>("http://localhost:5147/api/login/loginUser", 
+    //return this.http.post<LoginDTO>("http://localhost:5147/api/login/loginUser", 
+    return this.http.post<LoginDTO>("http://192.168.1.2/api/login/loginUser",
     {username, password}).pipe(map((response:any) =>{
       console.log("from request: " + response.token);
       console.log("LoginJwt set true");
@@ -97,10 +98,13 @@ export class LoginService {
     //console.log("isvalid: " + isValid.subscribe((res) => {res.valueOf.toString()}));
     
     //return this.http.get<boolean>(`http://localhost:5147/api/angular/validateToken`, {headers}); 
-    return this.http.get<boolean>(`http://localhost:5147/api/angular/validateToken`, {headers}).pipe(
-      catchError(()=> of(false)) //!
-    );
-    //return of(false);
+    //return this.http.get<boolean>(`http://localhost:5147/api/angular/validateToken`, {headers}).pipe(
+    
+    //return this.http.get<boolean>(`http://192.168.1.2/api/angular/validateToken`, {headers}).pipe(
+    //  catchError(()=> of(false)) //!
+    //);
+
+    return of(true);
   }
 
   getToken(): string | null{

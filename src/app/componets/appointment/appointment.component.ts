@@ -17,6 +17,16 @@ export class AppointmentComponent implements OnInit{
   time_end: String = '';
   time_start: String = '';
 
+ timeList = ['9:00 AM', '10:00 AM', '11:00 AM', '1:00 PM', '2:00 PM'];
+
+  activeItem: string = '';
+
+  activateItem(item: string) {
+    console.log(item);
+    
+    this.activeItem = item;
+  }
+
   constructor(private appointmentService: AppointmentsService){}
 
   ngOnInit() {
