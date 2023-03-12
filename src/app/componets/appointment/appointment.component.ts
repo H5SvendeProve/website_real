@@ -19,12 +19,19 @@ export class AppointmentComponent implements OnInit{
 
  timeList = ['9:00 AM', '10:00 AM', '11:00 AM', '1:00 PM', '2:00 PM'];
 
-  activeItem: string = '';
+  activeWashType: string = '';
+  activeTime: string = '';
 
-  activateItem(item: string) {
+  activateVaskType(item: string) {
     console.log(item);
     
-    this.activeItem = item;
+    this.activeWashType = item;
+  }
+
+  activateTime(item: string) {
+    console.log(item);
+    
+    this.activeTime = item;
   }
 
   constructor(private appointmentService: AppointmentsService){}
@@ -33,6 +40,8 @@ export class AppointmentComponent implements OnInit{
   }
 
   createAppointment(){
+    console.log(this.time_start);
+    
     this.successMsg = '';
     this.errorMsg = '';
     this.appointmentService.createAppointment(this.DKK_per_kWh as number, this.EUR_per_kWh as number, this.EXR, this.time_end, this.time_start)

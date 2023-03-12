@@ -13,12 +13,12 @@
           <div class="panel-body">
             <form (submit)="createAppointment()">
               <ul class="list-group list-group-horizontal" style="padding-bottom: 20px;">
-                <li class="list-group-item" (click)="activateItem('fine')"
-                  [ngClass]="{ 'active': activeItem === 'fine' }">Fine vask</li>
-                <li class="list-group-item" (click)="activateItem('koge')"
-                  [ngClass]="{ 'active': activeItem === 'koge' }">Koge vask</li>
-                <li class="list-group-item" (click)="activateItem('farve')"
-                  [ngClass]="{ 'active': activeItem === 'farve' }">Farve vask</li>
+                <li class="list-group-item" (click)="activateVaskType('fine')"
+                  [ngClass]="{ 'active': activeWashType === 'fine' }">Fine vask</li>
+                <li class="list-group-item" (click)="activateVaskType('koge')"
+                  [ngClass]="{ 'active': activeWashType === 'koge' }">Koge vask</li>
+                <li class="list-group-item" (click)="activateVaskType('farve')"
+                  [ngClass]="{ 'active': activeWashType === 'farve' }">Farve vask</li>
               </ul>
 
               <div class="from-group pt-0" style="padding-bottom: 20px;">
@@ -31,8 +31,8 @@
               </div>
               <label>Tider</label>
               <ul class="list-group list-group-horizontal">
-                <li class="list-group-item" [ngClass]="{ 'active': activeItem === item }"
-                  *ngFor="let item of timeList" (click)="activateItem(item)">
+                <li class="list-group-item" [ngClass]="{ 'active': activeTime === item }"
+                  *ngFor="let item of timeList" (click)="activateTime(item)">
                   {{ item }}
                 </li>
               </ul>
