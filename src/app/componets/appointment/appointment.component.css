@@ -57,4 +57,9 @@ input[type='text']{
     padding-right: 1rem;
 }
 
+.image {
+    height: 80px; 
+    display: block;
+    margin: auto; 
+}
 

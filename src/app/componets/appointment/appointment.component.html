@@ -23,21 +23,28 @@
 
               <div class="from-group pt-0" style="padding-bottom: 20px;">
                 <div class="input-field">
-                  <input type="text" [(ngModel)]="time_start" name="Time start" matInput [matDatepicker]="pickerStart"
+                  <input type="text" [(ngModel)]="startTime" name="Time start" matInput [matDatepicker]="pickerStart"
                     placeholder="Choose a start date">
                   <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
                   <mat-datepicker #pickerStart></mat-datepicker>
                 </div>
               </div>
               <label>Tider</label>
-              <ul class="list-group list-group-horizontal">
+              <ul class="list-group list-group-horizontal" style="padding-bottom: 20px;">
                 <li class="list-group-item" [ngClass]="{ 'active': activeTime === item }"
                   *ngFor="let item of timeList" (click)="activateTime(item)">
                   {{ item }}
                 </li>
               </ul>
-              
-
+              <ul class="list-group list-group-horizontal" >
+                <li class="list-group-item" [ngClass]="{ 'active': activeMachine === machine }"
+                  *ngFor="let machine of machines" (click)="activateMachine(machine)">
+                  <div style="align-content: center;">
+                    <img class="image" src={{machine.path}} alt="Image description"> 
+                  </div>
+                  {{machine.modelName}} <br> {{machine.machineManufacturer}}
+                </li>
+              </ul>
 
               <button class="btn btn-primary btn-block mt-4 w-100" type="submit">Make Appointment</button>
             </form>
