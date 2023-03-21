@@ -1,3 +1,5 @@
+import { ProgramDTO } from './../models/ProgramDTO';
+import { MachineDTO } from './../models/MachineDTO';
 import { AvailableTimesDTO } from './../models/AvailableTimesDTO';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -35,6 +37,16 @@ export class AppointmentsService {
     const headers = this.headers;
     return this.http.get<AvailableTimesDTO[]>(`${this.baseUrl}/getAvailableBookingTimes?username=` + username, {headers});
   }
+
+  getMachineProgramsFromMachine( machineManufacturer: String, machineModelName: String, machineType: String): Observable<ProgramDTO[]> {
+    const headers = this.headers;
+    return this.http.get<ProgramDTO[]>(`${this.baseUrl}/getMachineProgramsFromMachine?` +
+    `machineManufacturer=` + machineManufacturer +
+    `&machineModelName=` + machineModelName + 
+    `&machineType=` + machineType, {headers});
+  }
+
+  
 
 
 

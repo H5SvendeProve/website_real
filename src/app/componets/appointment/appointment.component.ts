@@ -1,3 +1,5 @@
+import { catchError, throwError } from 'rxjs';
+import { LoginComponent } from './../login/login.component';
 import { AvailableTimesDTO } from './../../models/AvailableTimesDTO';
 import { MachineDTO } from './../../models/MachineDTO';
 import { CookieService } from './../../services/cookie.service';
@@ -23,32 +25,39 @@ export class AppointmentComponent implements OnInit{
   //time_end: String = '';
   //time_start: String = '';
 
-  username: String = '';
-  startTime: String = '';
+  username: string = '';
+  startTime: string = '';
   programId: number = 0;
-  machineManufacturer: String = '';
-  modelName: String = '';
-  formattedDate: String = '';
-  fullFormattedDate: String = '';
+  //machineManufacturer: String = '';
+  //modelName: String = '';
+  //machineType: String = '';
+  formattedDate: string = '';
+  fullFormattedDate: string = '';
 
   activeWashType: string = '';
   activeTime: string = '';
   
 
-  timeList = ['06:00', '09:00', '12:00', '15:00', '18:00', '21:00'];
-  programs: ProgramDTO[] = [
-   {programNumber: 1, programName: 'koge'},
+  //timeList = ['06:00', '09:00', '12:00', '15:00', '18:00', '21:00'];
+  timeList:string[] = [];
+  //programs: ProgramDTO[] = [
+   //{programNumber: 1, programName: 'koge'},
    //{programNumber: 2, programName: 'fine'},
    //{programNumber: 3, programName: 'farve'},
-  ];
+  //];
 
+  programs: ProgramDTO[] = [];
   availableTimes: AvailableTimesDTO[] = [];
 
-  machines: MachineDTO[] = [
-    {path: '../../../assets/vaskemachine.jpg', modelName: 'washer 2000', machineManufacturer: 'Washmatic'},
-  ];
+  machines: MachineDTO[] = [{
+    path: '../../../assets/vaskemachine.jpg', 
+    modelName: 'washer 2000', 
+    machineManufacturer: 'Washmatic', 
+    machineType: 'Vaskemaskine',
+  },];
 
-  activeMachine: MachineDTO = this.machines[0];
+  //activeMachine: MachineDTO = this.machines[0];
+  activeMachine: MachineDTO = {path: '', modelName: '', machineManufacturer: '', machineType: ''};
 
   activateVaskType(item: string) {
     this.programId = 0; 
@@ -64,6 +73,18 @@ export class AppointmentComponent implements OnInit{
     //this.convertCESTtoUTC('');
     this.getDate();
     this.activeTime = item;
+    //this.formatTime();
+  }
+
+  formatTime(time: AvailableTimesDTO): string{
+    //let testTime = this.availableTimes[0];
+    console.log("orgianl time: " + time.startTime);
+    const selectedDate = new Date(String(time.startTime));
+    const formattedDate = this.datePipe.transform(selectedDate, 'dd/MM/yyyy HH:mm');
+    console.log("formatede time: " + formattedDate);
+    return String(formattedDate);
+    
+    
   }
 
   activateMachine(machine: MachineDTO) {
@@ -71,12 +92,93 @@ export class AppointmentComponent implements OnInit{
     //this.convertCESTtoUTC('');
     //this.getDate();
     this.activeMachine = machine;
+    //this.formatTime();
+    
+
+    this.appointmentService.getMachineProgramsFromMachine(this.activeMachine.machineManufacturer, 
+      this.activeMachine.modelName, this.activeMachine.machineType).subscribe((programs: ProgramDTO[]) =>{
+      console.log("programs");
+      console.log(programs);
+      this.programs = programs;
+    },
+    (error: ErrorEvent) => {
+      this.errorMsg = error.message;
+      //this.loading = false;
+      console.log("==== error =======");
+      console.log(error.error);
+      console.log("==================");
+    });
+
+    //this.appointmentService.getMachineProgramsFromMachine(this.activeMachine.machineManufacturer, 
+    //  this.activeMachine.modelName, this.activeMachine.machineType).pipe(
+    //    catchError((error) => {
+    //      console.error('An error occurred:', error);
+    //      //return throwError('Something went wrong!');
+    //    })
+    //  ).subscribe((programs: ProgramDTO[]) =>{
+    //    console.log("programs");
+    //    console.log(programs);
+    //    this.programs = programs;
+    //  });
+      
+      
+      
+    //  .subscribe((programs: ProgramDTO[]) =>{
+    //  console.log("programs");
+    //  console.log(programs);
+    //  this.programs = programs;
+    //},
+    //(error: ErrorEvent) => {
+    //  this.errorMsg = error.message;
+    //  //this.loading = false;
+    //  console.log("==== error =======");
+    //  console.log(error.error);
+    //  console.log("==================");
+    //});
+
+    this.appointmentService.getAvailableBookingTimes(this.username).subscribe((availableTimes : AvailableTimesDTO[]) =>{
+      console.log(availableTimes);
+      this.availableTimes = availableTimes;
+      console.log("prop availableTimes: " );
+      console.log(this.availableTimes);
+      this.parseFormattedTimes();
+    },
+    (error: ErrorEvent) => {
+      this.errorMsg = error.message;
+      //this.errorMsg = "no times"
+      console.log("==== error =======");
+      console.log(error.message);
+      console.log("==================");
+    });
+
+    
   }
 
-  setWashId(programName: String){
-    this.programs.forEach(program =>{
+  parseFormattedTimes(){
+    console.log("parse formatted times fun");
+    
+    this.availableTimes.forEach((availableTime: AvailableTimesDTO) => {
+      console.log(availableTime);
+      let formattedTime = this.formatTime(availableTime);
+      this.timeList.push(String(formattedTime));
+      
+    });
+  }
+
+  parsePrograms(){
+
+    this.programs.forEach((program: ProgramDTO) => {
+      console.log(program);
+      //let formattedTime = this.formatTime(availableTime);
+      //this.programs.push();
+      
+    });
+  }
+
+  setWashId(programName: string){
+    this.programs.forEach((program: ProgramDTO) =>{
       if(program.programName == programName){
-        this.programId = program.programNumber;
+        this.programId = program.programId;
         console.log(this.programId);
         this.errorMsg = '';
       }
@@ -88,12 +190,30 @@ export class AppointmentComponent implements OnInit{
 
   makeFullDate(){
     // 2023-03-14T19:41:47.865Z
+    console.log(this.activeTime);
+    
+    //let time:string = "21/03/2023T15:00";
+    //const selectedDate = new Date(time);
+    //const dateString = "21/03/2023 15:00";
+    const [day, month, year, hour, minute] = this.activeTime.split(/[\/: ]/);
+    const selectedDate = new Date(+year, +month - 1, +day, +hour, +minute);
 
-    this.fullFormattedDate = this.formattedDate + "T" + this.activeTime;
+    console.log("selected date: ");
+    console.log(selectedDate);
+    //this.fullFormattedDate = String(selectedDate).replace(' ', 'T');
+    //console.log(this.fullFormattedDate);
+    
+    const formattedDate = this.datePipe.transform(selectedDate, 'yyyy-MM-dd HH:mm');
+    this.fullFormattedDate = String(formattedDate).replace(' ', 'T');
+    //console.log(formattedDate);
+    console.log(this.fullFormattedDate);
+    
+    
   }
 
   constructor(private appointmentService: AppointmentsService, private datePipe: DatePipe, private cookieService: CookieService){}
 
+  //TODO: cheack hvor den er brugt
   getDate() {
     if(this.startTime != ''){
       this.errorMsg = "";
@@ -114,35 +234,32 @@ export class AppointmentComponent implements OnInit{
   }
 
   ngOnInit() {
-    console.log("=== this is oninit ====================");
+    //console.log("=== this is oninit ====================");
     this.getUsername();
-    this.appointmentService.getAvailableBookingTimes(this.username).subscribe((availableTimes : AvailableTimesDTO[]) =>{
-      console.log(availableTimes);
-      this.availableTimes = availableTimes;
-      console.log("prop availableTimes: " );
-      console.log(this.availableTimes);
-      
-      
-    },
-    (error: ErrorEvent) => {
-      this.errorMsg = error.error.message;
-      //this.loading = false;
-    });;
+    //this.appointmentService.getAvailableBookingTimes(this.username).subscribe((availableTimes : AvailableTimesDTO[]) =>{
+    //  console.log(availableTimes);
+    //  this.availableTimes = availableTimes;
+    //  console.log("prop availableTimes: " );
+    //  console.log(this.availableTimes);
+    //},
+    //(error: ErrorEvent) => {
+    //  this.errorMsg = error.message;
+    //  //this.errorMsg = "no times"
+    //  console.log("==== error =======");
+    //  console.log(error.message);
+    //  console.log("==================");
+    //});
   }
 
   createAppointment(){
     this.makeFullDate();
-    this.getUsername();
+    
+    //this.getUsername();
     console.log("user name: " + this.username);
     console.log("date: " + this.fullFormattedDate);
     console.log("machine num: " + String(this.programId));
     console.log("machineManufacturer: " + this.activeMachine.machineManufacturer);
     console.log("modelName: " + this.activeMachine.modelName);
-    
-    
-    
-    
-
 
     this.successMsg = '';
     this.errorMsg = '';
@@ -151,12 +268,15 @@ export class AppointmentComponent implements OnInit{
         this.username = '';
         this.startTime = '';
         this.programId = 0;
-        this.machineManufacturer = '';
-        this.modelName = '';
+        //this.machineManufacturer = '';
+        //this.modelName = '';
         this.successMsg = 'Appointments booked successfully'
       },
       (error : ErrorEvent) => {
         this.errorMsg = error.error.message;
+        console.log("==== error =======");
+        console.log(error.message);
+        console.log("==================");
       })
     //this.appointmentService.createAppointment('marius', '2023-03-14T19:41:47.865Z', 1, 'Samsung', 'Vaskemaskine')
     //  .subscribe((createdAppointments: AppointmentDTO) => {

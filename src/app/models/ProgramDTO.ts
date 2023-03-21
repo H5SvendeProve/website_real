@@ -1,4 +1,5 @@
 export interface ProgramDTO {
-    programNumber: number;
-    programName: string;
-  }
+  programId: number,
+  programName: string,
+  programRunTimeMinutes: number,
+}
