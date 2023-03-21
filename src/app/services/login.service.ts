@@ -100,7 +100,7 @@ export class LoginService {
     //return this.http.get<boolean>(`http://localhost:5147/api/angular/validateToken`, {headers}); 
     //return this.http.get<boolean>(`http://localhost:5147/api/angular/validateToken`, {headers}).pipe(
     
-    return this.http.get<boolean>(`http://192.168.1.2/api/angular/validateToken`, {headers}).pipe(
+    return this.http.get<boolean>(`http://192.168.1.2/api/frontend/validateToken`, {headers}).pipe(
       catchError(()=> of(false)) //!
     );
 

@@ -1,3 +1,4 @@
+import { AvailableTimesDTO } from './../models/AvailableTimesDTO';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppointmentDTO } from '../models/AppointmentDTO';
@@ -8,20 +9,31 @@ import { Observable } from 'rxjs';
 })
 export class AppointmentsService {
   // http://192.168.1.2/api/angular/createNewBooking
-  private baseUrl = 'http://192.168.1.2/api/angular';
+  private baseUrl = 'http://192.168.1.2/api/frontend';
+  private token = localStorage.getItem('token');
+  private headers: HttpHeaders = new HttpHeaders().set('Authorization', String(this.token));
   constructor(private http: HttpClient) { }
   
   getAppointments(): Observable<AppointmentDTO[]> {
-    return this.http.get<AppointmentDTO[]>(`${this.baseUrl}/getElectricityPrices`);
+    const headers = this.headers;
+    return this.http.get<AppointmentDTO[]>(`${this.baseUrl}/getElectricityPrices`, {headers});
   }
 
   createAppointment( username: String, startTime: String, programId: number, machineManufacturer: String, modelName: String): Observable<AppointmentDTO> {
+    const headers = this.headers;
     return this.http.post<AppointmentDTO>(`${this.baseUrl}/createNewBooking`, 
-    {username, startTime, programId, machineManufacturer, modelName});
+    {username, startTime, programId, machineManufacturer, modelName}, {headers});
   }
 
   cancelAppointments(id: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/2023/03-03_DK1.json`);
+  }
+
+  getAvailableBookingTimes( username: String): Observable<AvailableTimesDTO[]> {
+    //const token = localStorage.getItem('token');
+    //const headers = new HttpHeaders().set('Authorization', String(token));
+    const headers = this.headers;
+    return this.http.get<AvailableTimesDTO[]>(`${this.baseUrl}/getAvailableBookingTimes?username=` + username, {headers});
   }
 
 

@@ -1,3 +1,4 @@
+import { AvailableTimesDTO } from './../../models/AvailableTimesDTO';
 import { MachineDTO } from './../../models/MachineDTO';
 import { CookieService } from './../../services/cookie.service';
 import { ProgramDTO } from './../../models/ProgramDTO';
@@ -41,8 +42,10 @@ export class AppointmentComponent implements OnInit{
    //{programNumber: 3, programName: 'farve'},
   ];
 
+  availableTimes: AvailableTimesDTO[] = [];
+
   machines: MachineDTO[] = [
-    {path: '../../../assets/vaskemachine.jpg', modelName: 'Vaskemaskine', machineManufacturer: 'samsung'},
+    {path: '../../../assets/vaskemachine.jpg', modelName: 'washer 2000', machineManufacturer: 'Washmatic'},
   ];
 
   activeMachine: MachineDTO = this.machines[0];
@@ -111,6 +114,20 @@ export class AppointmentComponent implements OnInit{
   }
 
   ngOnInit() {
+    console.log("=== this is oninit ====================");
+    this.getUsername();
+    this.appointmentService.getAvailableBookingTimes(this.username).subscribe((availableTimes : AvailableTimesDTO[]) =>{
+      console.log(availableTimes);
+      this.availableTimes = availableTimes;
+      console.log("prop availableTimes: " );
+      console.log(this.availableTimes);
+      
+      
+    },
+    (error: ErrorEvent) => {
+      this.errorMsg = error.error.message;
+      //this.loading = false;
+    });;
   }
 
   createAppointment(){
