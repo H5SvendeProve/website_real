@@ -8,6 +8,7 @@ import { AppointmentDTO } from '../../models/AppointmentDTO';
 import { Component, OnInit } from '@angular/core';
 import { AppointmentsService } from '../../services/appointments.service';
 import { DatePipe } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-appointment',
@@ -101,8 +102,8 @@ export class AppointmentComponent implements OnInit{
       console.log(programs);
       this.programs = programs;
     },
-    (error: ErrorEvent) => {
-      this.errorMsg = error.message;
+    (error: HttpErrorResponse) => {
+      this.errorMsg = error.error;
       //this.loading = false;
       console.log("==== error =======");
       console.log(error.error);
@@ -143,11 +144,12 @@ export class AppointmentComponent implements OnInit{
       console.log(this.availableTimes);
       this.parseFormattedTimes();
     },
-    (error: ErrorEvent) => {
-      this.errorMsg = error.message;
-      //this.errorMsg = "no times"
+    (error: HttpErrorResponse) => {
+      this.errorMsg = error.error;
+      //this.errorMsg = ""
       console.log("==== error =======");
       console.log(error.message);
+      console.log(error.error);
       console.log("==================");
     });
 
