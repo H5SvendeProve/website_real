@@ -1,3 +1,4 @@
+import { UserBookingsDTO } from './../models/UserBookingsDTO';
 import { ProgramDTO } from './../models/ProgramDTO';
 import { MachineDTO } from './../models/MachineDTO';
 import { AvailableTimesDTO } from './../models/AvailableTimesDTO';
@@ -46,7 +47,10 @@ export class AppointmentsService {
     `&machineType=` + machineType, {headers});
   }
 
-  
+  getUserBookings(username: string): Observable<UserBookingsDTO[]> {
+    const headers = this.headers;
+    return this.http.get<UserBookingsDTO[]>(`${this.baseUrl}/getUserBookings?username=` + username, {headers});
+  }
 
 
 

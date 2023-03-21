@@ -1,3 +1,5 @@
+import { UserBookingsDTO } from './../../models/UserBookingsDTO';
+import { CookieService } from './../../services/cookie.service';
 import { AppointmentsService } from '../../services/appointments.service';
 import { AppointmentDTO } from '../../models/AppointmentDTO';
 import { Component } from '@angular/core';
@@ -14,20 +16,34 @@ export class AppointmentListComponent {
   public errorMsg: string = '';
   public successMsg: string = '';
   public appointments: AppointmentDTO[] = [];
-  public columns = ["DKK_per_kWh", "EUR_per_kWh", "time_end", "time_start", "cancel"];
+  public columns = ["price_dkk", "time_start", "time_end", "cancel"];
 
-  constructor(private appointmentsService: AppointmentsService){}
+  public bookings: UserBookingsDTO[] = [];
+
+  constructor(private appointmentsService: AppointmentsService, private cookieService: CookieService){}
 
   ngOnInit() {
-    this.appointmentsService.getAppointments().subscribe((appointments: AppointmentDTO[]) =>{
-      console.log(appointments);
-      this.appointments = appointments;
+    //this.appointmentsService.getAppointments().subscribe((appointments: AppointmentDTO[]) =>{
+    //  console.log(appointments);
+    //  this.appointments = appointments;
+    //  this.loading = false;
+    //  console.log(this.appointments);
+    //  
+    //},
+    //(error: ErrorEvent) => {
+    //  this.errorMsg = error.error.message;
+    //  this.loading = false;
+    //});
+    let username = this.cookieService.getCookie("username");
+
+    this.appointmentsService.getUserBookings(username).subscribe((bookings: UserBookingsDTO[]) =>{
+      console.log(bookings);
+      this.bookings = bookings;
       this.loading = false;
-      console.log(this.appointments);
-      
+      console.log(this.bookings);
     },
     (error: ErrorEvent) => {
-      this.errorMsg = error.error.message;
+      this.errorMsg = error.error.error;
       this.loading = false;
     });
   }
@@ -42,7 +58,7 @@ export class AppointmentListComponent {
         this.loading = false;
       },
       (error: ErrorEvent) => {
-        this.errorMsg = error.error.message;
+        this.errorMsg = error.error.error;
       }); 
     }
 
