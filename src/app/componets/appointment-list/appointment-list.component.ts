@@ -1,3 +1,5 @@
+import { DatePipe } from '@angular/common';
+import { AvailableTimesDTO } from './../../models/AvailableTimesDTO';
 import { UserBookingsDTO } from './../../models/UserBookingsDTO';
 import { CookieService } from './../../services/cookie.service';
 import { AppointmentsService } from '../../services/appointments.service';
@@ -16,7 +18,7 @@ export class AppointmentListComponent {
   public errorMsg: string = '';
   public successMsg: string = '';
   public appointments: AppointmentDTO[] = [];
-  public columns = ["price_dkk", "time_start", "time_end", "cancel"];
+  public columns = ["booking_id", "time_start", "time_end", "price_dkk", "cancel"];
 
   public bookings: UserBookingsDTO[] = [];
 
@@ -47,6 +49,35 @@ export class AppointmentListComponent {
       this.loading = false;
     });
   }
+
+  //parseFormattedTimesIntoUserBookingDTO(userBooking: UserBookingsDTO): UserBookingsDTO{
+  //  //this.timeList = [];
+  //  //bookedTimes.forEach((bookedtime: UserBookingsDTO) => {
+  //  //  console.log(bookedtime);
+  //  //  let formattedTime = this.formatTime(bookedtime);
+  //  //  //this.timeList.push(String(formattedTime));
+  //  //  this.bookings.push(String(formattedTime));
+//
+  //  let startTime: string = this.formatTime(userBooking.startTime);
+  //  let endTime: string = this.formatTime(userBooking.endTime);
+  //
+  //    return {bookingId: userBooking.bookingId, 
+  //      username: userBooking.username, 
+  //      price: userBooking.price, 
+  //      startTime: startTime,
+  //      endTime: endTime,
+  //      programId: userBooking.programId,
+  //      machineManufacturer: userBooking.machineManufacturer,
+  //      modelName: userBooking.modelName} 
+  //  }
+//
+  //formatTime(time: string): string{
+  //  console.log("orgianl time: " + time);
+  //  const selectedDate = new Date(String(time));
+  //  const formattedDate = this.datePipe.transform(selectedDate, 'dd/MM/yyyy HH:mm');
+  //  console.log("formatede time: " + formattedDate);
+  //  return String(formattedDate);
+  //}
 
   cancelAppointment(id: string) {
     this.appointmentsService.cancelAppointments(id)

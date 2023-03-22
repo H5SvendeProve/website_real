@@ -48,14 +48,21 @@
                 </li>
               </ul>
 
-              <!--<label>Tider</label>-->
+              <!--<label>Tider</label>
               <ul class="list-group list-group-horizontal" style="padding-bottom: 20px;">
                 <li class="list-group-item" [ngClass]="{ 'active': activeTime === item }"
                   *ngFor="let item of timeList" (click)="activateTime(item)">
                   {{ item }}
                 </li>
+              </ul>-->
+
+              <ul class="list-group list-group-horizontal" style="padding-bottom: 20px;">
+                <li class="list-group-item" [ngClass]="{ 'active': activeTime === availableTime.startTime }"
+                  *ngFor="let availableTime of availableTimes" (click)="activateTime(availableTime.startTime)">
+                  {{ availableTime.startTime | date: 'dd-MM-yyyy HH:mm' }}
+                </li>
               </ul>
-              
+
               <button class="btn btn-primary btn-block mt-4 w-100" type="submit">Opret booking</button>
             </form>
           </div>
