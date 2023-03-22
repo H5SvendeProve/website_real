@@ -23,38 +23,12 @@
                 </li>
               </ul>
 
-              <!--<ul class="list-group list-group-horizontal" style="padding-bottom: 20px;">
-                <li class="list-group-item" (click)="activateVaskType('fine')"
-                  [ngClass]="{ 'active': activeWashType === 'fine' }">Fine vask</li>
-                <li class="list-group-item" (click)="activateVaskType('koge')"
-                  [ngClass]="{ 'active': activeWashType === 'koge' }">Koge vask</li>
-                <li class="list-group-item" (click)="activateVaskType('farve')"
-                  [ngClass]="{ 'active': activeWashType === 'farve' }">Farve vask</li>
-              </ul> -->
-
-              <!--<div class="from-group pt-0" style="padding-bottom: 20px;">
-                <div class="input-field">
-                  <input type="text" [(ngModel)]="startTime" name="Time start" matInput [matDatepicker]="pickerStart"
-                    placeholder="Choose a start date">
-                  <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
-                  <mat-datepicker #pickerStart></mat-datepicker>
-                </div>
-              </div>-->
-              <!--<label>Programmer</label>-->
               <ul class="list-group list-group-horizontal" style="padding-bottom: 20px;">
                 <li class="list-group-item" [ngClass]="{ 'active': activeWashType === program.programName }"
                   *ngFor="let program of programs" (click)="activateVaskType(program.programName)">
                   {{ program.programName}} <br> {{program.programRunTimeMinutes}} minuter
                 </li>
               </ul>
-
-              <!--<label>Tider</label>
-              <ul class="list-group list-group-horizontal" style="padding-bottom: 20px;">
-                <li class="list-group-item" [ngClass]="{ 'active': activeTime === item }"
-                  *ngFor="let item of timeList" (click)="activateTime(item)">
-                  {{ item }}
-                </li>
-              </ul>-->
 
               <ul class="list-group list-group-horizontal" style="padding-bottom: 20px;">
                 <li class="list-group-item" [ngClass]="{ 'active': activeTime === availableTime.startTime }"

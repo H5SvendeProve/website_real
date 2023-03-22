@@ -1,6 +1,6 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { CookieService } from './../../services/cookie.service';
 import { Router, RouterModule } from '@angular/router';
-import { LoginDTO } from './../../models/LoginDTO';
 import { LoginService } from './../../services/login.service';
 import { Component } from '@angular/core';
 
@@ -33,65 +33,55 @@ export class LoginComponent {
     }
   }
 
-
-  //login(){
-  //  console.log(this.userName);
-  //  console.log(this.password);
-  //
-  //  this.successMsg = '';
-  //  this.errorMsg = '';
-  //  this.loginService.login(this.userName, this.password).subscribe((loginAttempt: LoginDTO) => { 
-  //    this.userName = '';
-  //    this.password = '';
-  //    this.successMsg = 'Login was successfully'
-  //    console.log(loginAttempt);
-  //    
-  //    this.router.navigate(['']); // move to here then call works
-  //  },
-  //  (error : ErrorEvent) => {
-  //    this.errorMsg = error.error.message;
-  //    console.log("error");
-  //  });
-  //}
-
-
   loginJWT(){
-    console.log(this.userName);
-    console.log(this.password);
-    console.log("loginJWT met");
+    //console.log(this.userName);
+    //console.log(this.password);
+    //console.log("loginJWT met");
     
-    this.log();
-    //this.setCookie("username", "my", 2);
-    this.cookieService.setCookie("username", this.userName, 2)
-    //var isLoginOk = this.loginService.loginJWT(this.userName, this.password)
-    //console.log("isLoginOk: " + isLoginOk);
-    //if (isLoginOk) {
-    //  this.successMsg = 'Login was successfully'
-    //  this.router.navigate(['']);
-    //}else{
-    //  this.successMsg = 'Login error'
-    //}
+    this.cookieService.setCookie("username", this.userName, 2);
 
-    this.loginService.loginJWT(this.userName, this.password).subscribe((res) => {
-      console.log("res: " + res);
-    if (res) {
-      this.successMsg = 'Login was successfully'
-      this.router.navigate(['']);
-    }else{
-      this.successMsg = 'Login error'
-    }
-    })
-    
-    //this.router.navigate(['']);
+   // this.loginService.loginJWT(this.userName, this.password).subscribe((res) => {
+   //   console.log("res: " + res);
+   // if (res) {
+   //   this.errorMsg = '';
+   //   this.successMsg = 'Login was successfully';
+   //   this.router.navigate(['']);
+   // }else{
+   //   this.successMsg = '';
+   //   this.errorMsg = 'Login error';
+   // }
+   // })
+
+   this.loginService.loginJWT(this.userName, this.password).subscribe((response) => {
+    console.log("response.token: " + response.token);
+    localStorage.setItem('token', response.token);
+    this.router.navigate(['']);
+    this.errorMsg = '';
+    this.successMsg = 'Login was successfully';
+
+  },
+  (error: HttpErrorResponse) => {
+    this.successMsg = '';
+    this.errorMsg = error.error.error;
+  })
+
+
+  //this.appointmentsService.getUserBookings(username).subscribe((bookings: UserBookingsDTO[]) =>{
+  //  console.log(bookings);
+  //  this.bookings = bookings;
+  //  this.loading = false;
+  //  console.log(this.bookings);
+  //},
+  //(error: ErrorEvent) => {
+  //  this.errorMsg = error.error.error;
+  //  this.loading = false;
+  //});
   }
-  log(){
-    console.log("inside log");
-    
-  }
+
 
   setCookie(name: string, value: string, days: number) {
-    console.log("setCookie inside");
-    
+    //console.log("setCookie inside");
+  
     const expirationDate = new Date();
     expirationDate.setDate(expirationDate.getDate() + days);
   

@@ -1,5 +1,3 @@
-import { catchError, throwError } from 'rxjs';
-import { LoginComponent } from './../login/login.component';
 import { AvailableTimesDTO } from './../../models/AvailableTimesDTO';
 import { MachineDTO } from './../../models/MachineDTO';
 import { CookieService } from './../../services/cookie.service';
@@ -21,17 +19,10 @@ export class AppointmentComponent implements OnInit{
   public successMsg: string = '';
 
   username: string = '';
-  //startTime: string = '';
   programId: number = 0;
-  //formattedDate: string = '';
-  //fullFormattedDate: string = '';
-
   activeWashType: string = '';
   activeTime: string = '';
   
-
-  //timeList:string[] = [];
-
   programs: ProgramDTO[] = [];
   availableTimes: AvailableTimesDTO[] = [];
 
@@ -56,10 +47,6 @@ export class AppointmentComponent implements OnInit{
     this.appointmentService.getAvailableBookingTimes(this.username).subscribe((availableTimes : AvailableTimesDTO[]) =>{
       console.log(availableTimes);
       this.availableTimes = availableTimes;
-      //console.log("prop availableTimes: " );
-      //console.log(this.availableTimes);
-      //this.parseFormattedTimes();
-
     },
     (error: HttpErrorResponse) => {
       this.errorMsg = error.error.error;
@@ -67,19 +54,8 @@ export class AppointmentComponent implements OnInit{
   }
 
   activateTime(item: string) {
-    console.log(item);
-
-    //this.getDate();
     this.activeTime = item;
   }
-
-  //formatTime(time: AvailableTimesDTO): string{
-  //  console.log("orgianl time: " + time.startTime);
-  //  const selectedDate = new Date(String(time.startTime));
-  //  const formattedDate = this.datePipe.transform(selectedDate, 'dd/MM/yyyy HH:mm');
-  //  console.log("formatede time: " + formattedDate);
-  //  return String(formattedDate);
-  //}
 
   activateMachine(machine: MachineDTO) {
     console.log(machine);
@@ -94,35 +70,7 @@ export class AppointmentComponent implements OnInit{
     (error: HttpErrorResponse) => {
       this.errorMsg = error.error.error;
     });
-
-    //this.appointmentService.getAvailableBookingTimes(this.username).subscribe((availableTimes : AvailableTimesDTO[]) =>{
-    //  console.log(availableTimes);
-    //  this.availableTimes = availableTimes;
-    //  //console.log("prop availableTimes: " );
-    //  //console.log(this.availableTimes);
-    //  this.parseFormattedTimes();
-    //},
-    //(error: HttpErrorResponse) => {
-    //  this.errorMsg = error.error.error;
-    //});
   }
-
-  //parseFormattedTimes(){
-  //  this.timeList = [];
-  //  this.availableTimes.forEach((availableTime: AvailableTimesDTO) => {
-  //    console.log(availableTime);
-  //    let formattedTime = this.formatTime(availableTime);
-  //    this.timeList.push(String(formattedTime));
-  //  });
-  //}
-
-  //parsePrograms(){
-  //  this.programs.forEach((program: ProgramDTO) => {
-  //    console.log(program);
-  //    //let formattedTime = this.formatTime(availableTime);
-  //    //this.programs.push();
-  //  });
-  //}
 
   setWashId(programName: string){
     this.programs.forEach((program: ProgramDTO) =>{
@@ -134,18 +82,6 @@ export class AppointmentComponent implements OnInit{
     });
   }
 
-  //makeFullDate(){    
-  //  const [day, month, year, hour, minute] = this.activeTime.split(/[\/: ]/);
-  //  const selectedDate = new Date(+year, +month - 1, +day, +hour, +minute);
-  //  
-  //  const formattedDate = this.datePipe.transform(selectedDate, 'yyyy-MM-dd HH:mm');
-  //  this.fullFormattedDate = String(formattedDate).replace(' ', 'T');
-//
-  //  console.log(this.fullFormattedDate);
-  //}
-
-
-
   getUsername(){
     this.username = this.cookieService.getCookie("username");
   }
@@ -155,22 +91,17 @@ export class AppointmentComponent implements OnInit{
   }
 
   createAppointment(){
-    //this.makeFullDate();
-    //console.log("active time (createAppointment)");
-    //console.log(this.activeTime);
-    
-    console.log("user name: " + this.username);
-    console.log("date: " + this.activeTime);
-    console.log("machine num: " + String(this.programId));
-    console.log("machineManufacturer: " + this.activeMachine.machineManufacturer);
-    console.log("modelName: " + this.activeMachine.modelName);
+    //console.log("user name: " + this.username);
+    //console.log("date: " + this.activeTime);
+    //console.log("machine num: " + String(this.programId));
+    //console.log("machineManufacturer: " + this.activeMachine.machineManufacturer);
+    //console.log("modelName: " + this.activeMachine.modelName);
 
     this.successMsg = '';
     this.errorMsg = '';
     this.appointmentService.createAppointment(this.username, this.activeTime, this.programId, this.activeMachine.machineManufacturer, this.activeMachine.modelName)
       .subscribe((createdAppointments: AppointmentDTO) => {
         this.username = '';
-        //this.startTime = '';
         this.programId = 0;
 
         this.successMsg = 'Appointments booked successfully'
@@ -178,8 +109,6 @@ export class AppointmentComponent implements OnInit{
       },
       (error : HttpErrorResponse) => {
         this.errorMsg = error.error.error;
-        //console.log();
-        
       });
   }
 }
